@@ -1,0 +1,6 @@
+{
+  "name": "PakLoad — Pakistan Mobile Load Calculator",
+  "description": "Offline-ready Pakistan mobile load and telecom tax calculator for Jazz, Zong, Telenor, and Ufone, installable as an Android app.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
