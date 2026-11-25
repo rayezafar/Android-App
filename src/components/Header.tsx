@@ -1,7 +1,7 @@
 import React from 'react';
 import { Download, Moon, Sun } from 'lucide-react';
 
-export type AppTab = 'calculator' | 'ussd' | 'history' | 'apk';
+export type AppTab = 'calculator';
 
 interface HeaderProps {
   activeTab: AppTab;
@@ -12,13 +12,6 @@ interface HeaderProps {
   isInstalled: boolean;
   onInstall: () => void;
 }
-
-const NAV_ITEMS: { id: AppTab; label: string }[] = [
-  { id: 'calculator', label: 'Calculator' },
-  { id: 'ussd', label: 'Packages & USSD' },
-  { id: 'history', label: 'History' },
-  { id: 'apk', label: 'Android APK' },
-];
 
 export const Header: React.FC<HeaderProps> = ({
   activeTab,
@@ -31,7 +24,7 @@ export const Header: React.FC<HeaderProps> = ({
 }) => {
   return (
     <header className="sticky top-0 z-30 bg-white/95 dark:bg-slate-950/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
-      {/* Desktop 3-Zone Top Bar */}
+      {/* Desktop Top Bar */}
       <div className="hidden md:flex items-center justify-between gap-8 max-w-6xl mx-auto px-6 h-16">
         <button
           type="button"
@@ -41,25 +34,15 @@ export const Header: React.FC<HeaderProps> = ({
           PakLoad
         </button>
 
-        <nav aria-label="Main navigation" className="flex items-center gap-6">
-          {NAV_ITEMS.map((item) => {
-            const active = activeTab === item.id;
-            return (
-              <button
-                key={item.id}
-                type="button"
-                onClick={() => onTabChange(item.id)}
-                aria-current={active ? 'page' : undefined}
-                className={`py-2 text-sm font-semibold whitespace-nowrap shrink-0 border-b-2 transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 ${
-                  active
-                    ? 'border-emerald-600 text-emerald-700 dark:text-emerald-400 dark:border-emerald-400'
-                    : 'border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100'
-                }`}
-              >
-                {item.label}
-              </button>
-            );
-          })}
+        <nav aria-label="Main navigation" className="flex items-center">
+          <button
+            type="button"
+            onClick={() => onTabChange('calculator')}
+            aria-current={activeTab === 'calculator' ? 'page' : undefined}
+            className="py-2 text-sm font-semibold whitespace-nowrap shrink-0 border-b-2 border-emerald-600 text-emerald-700 dark:text-emerald-400 dark:border-emerald-400 transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
+          >
+            Calculator
+          </button>
         </nav>
 
         <div className="flex items-center gap-3 shrink-0">
@@ -72,7 +55,7 @@ export const Header: React.FC<HeaderProps> = ({
             {isDark ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4" />}
           </button>
 
-          {isInstallable && !isInstalled ? (
+          {isInstallable && !isInstalled && (
             <button
               type="button"
               onClick={onInstall}
@@ -81,19 +64,11 @@ export const Header: React.FC<HeaderProps> = ({
               <Download className="w-4 h-4" />
               Install App
             </button>
-          ) : (
-            <button
-              type="button"
-              onClick={() => onTabChange('apk')}
-              className="px-4 py-2 rounded-xl bg-slate-900 dark:bg-emerald-600 hover:bg-slate-800 dark:hover:bg-emerald-500 text-white text-xs font-semibold whitespace-nowrap shrink-0 transition-colors"
-            >
-              Get Android App
-            </button>
           )}
         </div>
       </div>
 
-      {/* Mobile Compact Top App Bar (52px <= 15% cap with 58px bottom nav) */}
+      {/* Mobile Compact Top App Bar */}
       <div className="flex md:hidden items-center justify-between px-4 h-[52px]">
         <button
           type="button"
@@ -104,7 +79,7 @@ export const Header: React.FC<HeaderProps> = ({
         </button>
 
         <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 truncate px-2">
-          {NAV_ITEMS.find((i) => i.id === activeTab)?.label}
+          Calculator
         </span>
 
         <div className="flex items-center gap-1 shrink-0">
